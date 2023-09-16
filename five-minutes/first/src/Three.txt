@@ -1,0 +1,23 @@
+Что делает этот метод?
+
+ public static int f(int);
+    Code:
+       0: iload_0
+       1: ifne          6
+       4: iconst_0
+       5: ireturn
+       6: iload_0
+       7: iconst_1
+       8: if_icmpne     13
+      11: iconst_1
+      12: ireturn
+      13: iload_0
+      14: iconst_1
+      15: isub
+      16: invokestatic  #7                  // Method f:(I)I
+      19: iload_0
+      20: iconst_2
+      21: isub
+      22: invokestatic  #7                  // Method f:(I)I
+      25: iadd
+      26: ireturn
