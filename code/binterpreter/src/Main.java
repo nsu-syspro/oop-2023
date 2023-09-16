@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Main {
 
     /*
@@ -9,19 +11,66 @@ public class Main {
      + - inc number in cell
      - - dec number in cell
      . - print as ascii
-     ...and 3 more...
+     , - read char from input and put it into the current cell
+     [ - ...
+     ] - ...
      */
 
     public static void main(String[] args) {
-        // reference type (default - null)
-        String s = ">>>+++++++.";
-        // primitive type (0 / false)
-        char[] cells = new char[30_000];
-        int pos = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            // TODO: write switch
+        if (args.length >= 2) {
+            System.err.println("Too many arguments");
+            System.err.println("Usage: binterpreter [-p]");
+            return;
         }
+        if (args.length == 1) {
+            String s1 = "-p";
+            if (!s1.equals(args[0])) {
+                System.err.println("Unknown argument: " + args[0]);
+                System.err.println("Usage: binterpreter [-p]");
+                return;
+            }
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                String line = scanner.nextLine();
+                // ><..#.>
+                int i = 0;
+                while (i < line.length()) {
+                    Command cmd = getCmd(line.charAt(i));
+                    if (cmd == null) {
+                        System.out.println("System.err.println(\"Unknown command: '\" + c + \"'\")");
+                    } else {
+                        System.out.println(cmd.print());
+                    }
+                    i++;
+                }
+            }
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        Context ctx = new Context(0, new char[30_000]);
+        while (true) {
+            String line = scanner.nextLine();
+            int i = 0;
+            while (i < line.length()) {
+                char c = line.charAt(i);
+                Command cmd = getCmd(c);
+                if (cmd == null) {
+                    System.err.println("Unknown command: '" + c + "'");
+                } else {
+                    cmd.apply(ctx);
+                }
+                i++;
+            }
+        }
+    }
+
+    private static Command getCmd(char c) {
+        return switch (c) {
+            case '>' -> new Right();
+            case '+' -> new Plus();
+            case '.' -> new Print();
+            default -> null;
+        };
     }
 }
 
