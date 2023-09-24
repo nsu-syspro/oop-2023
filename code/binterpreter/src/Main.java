@@ -29,48 +29,15 @@ public class Main {
                 System.err.println("Usage: binterpreter [-p]");
                 return;
             }
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                String line = scanner.nextLine();
-                // ><..#.>
-                int i = 0;
-                while (i < line.length()) {
-                    Command cmd = getCmd(line.charAt(i));
-                    if (cmd == null) {
-                        System.out.println("System.err.println(\"Unknown command: '\" + c + \"'\")");
-                    } else {
-                        System.out.println(cmd.print());
-                    }
-                    i++;
-                }
-            }
+            return;
         }
 
         Scanner scanner = new Scanner(System.in);
-        Context ctx = new Context(0, new char[30_000]);
+        Interpreter interpreter = new Interpreter();
         while (true) {
             String line = scanner.nextLine();
-            int i = 0;
-            while (i < line.length()) {
-                char c = line.charAt(i);
-                Command cmd = getCmd(c);
-                if (cmd == null) {
-                    System.err.println("Unknown command: '" + c + "'");
-                } else {
-                    cmd.apply(ctx);
-                }
-                i++;
-            }
+            interpreter.interpret(line);
         }
-    }
-
-    private static Command getCmd(char c) {
-        return switch (c) {
-            case '>' -> new Right();
-            case '+' -> new Plus();
-            case '.' -> new Print();
-            default -> null;
-        };
     }
 }
 
