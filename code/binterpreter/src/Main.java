@@ -36,7 +36,11 @@ public class Main {
         Interpreter interpreter = new Interpreter();
         while (true) {
             String line = scanner.nextLine();
-            interpreter.interpret(line);
+            try {
+                interpreter.interpret(line);
+            } catch (InterpreterException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 }

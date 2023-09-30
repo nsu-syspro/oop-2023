@@ -28,16 +28,14 @@ public class Interpreter {
             }
             Command cmd = getCommand(line, c);
             if (cmd == null) {
-                System.err.println("Unknown symbol '" + c + "' at " + posInLine);
-                return null;
+                throw new InterpreterException("Unknown symbol '" + c + "' at " + posInLine);
             }
             commands.add(cmd);
             posInLine++;
         }
 
         if (stopAt.length != 0) {
-            // TODO: print error
-            return null;
+            throw new InterpreterException("Couldn't find one of stop symbols: ");
         }
         return commands;
     }
