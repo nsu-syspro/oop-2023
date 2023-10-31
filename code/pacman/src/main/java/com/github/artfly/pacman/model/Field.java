@@ -1,6 +1,7 @@
 package com.github.artfly.pacman.model;
 
-import com.github.artfly.pacman.GameState;
+import com.github.artfly.pacman.dto.GameObject;
+import com.github.artfly.pacman.dto.GameState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +26,13 @@ public class Field {
     public static Field create(GameState initial) {
         int lives = initial.lives();
         int score = initial.score();
-        GameState.GameObject[][] initialCells = initial.cells();
+        GameObject[][] initialCells = initial.cells();
         Cell[][] cells = new Cell[initialCells.length][initialCells[0].length];
         List<Ghost> ghosts = new ArrayList<>();
         Pacman pacman = null;
         for (int x = 0; x < initialCells.length; x++) {
             for (int y = 0; y < initialCells[x].length; y++) {
-                GameState.GameObject gameObject = initialCells[x][y];
+                GameObject gameObject = initialCells[x][y];
                 switch (gameObject) {
                     case PACMAN -> {
                         assert pacman != null;
@@ -68,6 +69,10 @@ public class Field {
         checkCollisions();
     }
 
+    private void checkCollisions() {
+        // TODO
+    }
+
     private boolean hasFoodAt(Coord coord) {
         return cells[coord.x()][coord.y()] == Cell.FOOD;
     }
@@ -77,6 +82,7 @@ public class Field {
     }
 
     public GameState getGameState() {
-        return new GameState();
+        // TODO
+        return GameState.initial();
     }
 }

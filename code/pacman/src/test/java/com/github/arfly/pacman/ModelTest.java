@@ -1,11 +1,12 @@
 package com.github.arfly.pacman;
 
-import com.github.artfly.pacman.GameState;
+import com.github.artfly.pacman.dto.GameObject;
+import com.github.artfly.pacman.dto.GameState;
 import com.github.artfly.pacman.model.Direction;
 import com.github.artfly.pacman.model.Field;
 import org.junit.Test;
 
-import static com.github.artfly.pacman.GameState.GameObject.*;
+import static com.github.artfly.pacman.dto.GameObject.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +14,7 @@ public class ModelTest {
 
     @Test
     public void foodConsumed() {
-        GameState.GameObject[][] cells = {
+        GameObject[][] cells = {
                 {
                     PACMAN,
                     FOOD
@@ -26,7 +27,7 @@ public class ModelTest {
         GameState actual =field.getGameState();
         assertEquals(1, actual.score());
         assertEquals(1, actual.lives());
-        GameState.GameObject[][] expectedCells = {
+        GameObject[][] expectedCells = {
                 {
                         EMPTY,
                         PACMAN

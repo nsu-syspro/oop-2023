@@ -9,6 +9,16 @@ public class Coord {
         this.y = y;
     }
 
+    public Coord move(Direction direction) {
+        switch (direction) {
+            case UP -> y++;
+            case DOWN -> y--;
+            case LEFT -> x--;
+            case RIGHT -> x++;
+        }
+        return this;
+    }
+
     public int x() {
         return x;
     }
