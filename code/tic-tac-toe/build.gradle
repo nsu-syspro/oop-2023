@@ -1,0 +1,20 @@
+group 'io.github.artfly'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+java {
+    compileJava {
+        sourceCompatibility(17)
+        targetCompatibility(17)
+    }
+}
+
+jar.manifest.attributes(
+        ['Class-Path': configurations.runtimeClasspath.collect { it.getName() }.join(' '),
+         'Main-Class': 'Main']
+)
+
+repositories {
+    mavenCentral()
+}
